@@ -16,9 +16,21 @@ Page for Aaron Pulley's CIT 261-02 demo of JSON Parse and Stringify.
   <h2>Parse</h2>
     <p>The JavaScript on this page creates a string and prints it below.</p>
     <code id="before"></code>
+    <p>It then uses JSON.parse() to convert the string into an object. It proves this by replacing the age with a random integer. you can refresh the page multiple times to prove it's random.</p>
+    <p>It then uses JSON.stringify() to convert the object back into a string. It proves this by printing the string below using the .toUpperCase() method.</p>
+    <code id="after"></code>
 </body>
 <script>
+  /* Create object string */
   var str = '{name: "", age: 5}';
   document.getElementById("before").innerHTML = str;
+  
+  /* String to object, change age */
+  var obj = JSON.parse(str);
+  obj.age = Math.ceiling(Math.random()*100);
+  
+  /* Object to string, print uppercase */
+  var str2 = JSON.stringify(obj);
+  document.getElementById("after").innerHTML = str2;
 </script>
 </html>
