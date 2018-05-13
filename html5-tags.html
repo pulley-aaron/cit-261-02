@@ -16,28 +16,55 @@ Page for Aaron Pulley's CIT 261-02 demo of HTML5 Tags - Video, Audio, and Canvas
 			<h2>Audio</h2>
 				<p>Below, I demonstrate my ability to include audio files on a web page.</p>
 				<p>Here's something I made from the sample files in <a href="http://www.magix.com/us/music-maker/">MAGIX Music Maker</a>.</p>
-				<div class="my-audio-box">
-					<audio controls preload="none">
-						<source src="http://www.aaronpulley.net/audio/test2.OGG">
-						<source src="http://www.aaronpulley.net/audio/test3.MP3">
-						<p>Your browser does not support HTML5 audio.</p>
-					</audio>
-				</div>
+				<audio controls preload="none">
+					<source src="http://www.aaronpulley.net/audio/test2.OGG">
+					<source src="http://www.aaronpulley.net/audio/test3.MP3">
+					<p>Your browser does not support HTML5 audio.</p>
+				</audio>
 				<br>
 				<a href="http://www.aaronpulley.net/audio/test2.MP3" download>Download test2.MP3 (667 KB)</a>
 			<h2>Video</h2>
 				<p>To demonstrate my ability to include video files, here's a simple stop-motion video I made. (Please keep your expectations about my movie-making skills low.)</p>
-				<div class="my-video-box">
-					<video controls preload="metadata" poster="/images/the-eyeball-poster.jpg">
-						<source src="http://www.aaronpulley.net/video/the-eyeball-video.mp4" type="video/mp4">
-						<source src="http://www.aaronpulley.net/video/the-eyeball-video.ogv" type="video/ogg">
-						<source src="http://www.aaronpulley.net/video/the-eyeball-video.webm" type="video/webm">
-						<p>Your browser does not support HTML5 video.</p>
-					</video>
-				</div>
+				<video controls preload="metadata" poster="http://www.aaronpulley.net/images/the-eyeball-poster.jpg">
+					<source src="http://www.aaronpulley.net/video/the-eyeball-video.ogv" type="video/ogg">
+					<source src="http://www.aaronpulley.net/video/the-eyeball-video.webm" type="video/webm">
+					<source src="http://www.aaronpulley.net/video/the-eyeball-video.mp4" type="video/mp4">
+					<p>Your browser does not support HTML5 video.</p>
+				</video>
 				<br>
 				<a href="http://www.aaronpulley.net/video/the-eyeball-video.mp4" download>Download the-eyeball-video.mp4 (5.7 MB)</a>
 			<h2>Canvas</h2>
+				<canvas id="awp-canvas" height="200" width="600" style="border: 1px solid #999999"></canvas>
         </div>
     </body>
+	<script>
+		var canvas = document.getElementById('awp-canvas');
+		var context = canvas.getContext('2d');
+
+		/* rectangle */
+		context.fillStyle = 'red';
+		context.fillRect(10, 10, 80, 180); /* x1, y1, width, height */
+		
+		/* line */
+		context.moveTo(110, 10); /* x1, y1 */
+		context.lineTo(190, 190); /* x2, y2 */
+		context.stroke();
+		
+		/* arc or circle */
+		context.beginPath();
+		context.arc(250, 100, 45, 1, 2*Math.PI-1); /* arc(x_center, y_center, r, start_angle, end_angle), 2*Math.PI = 360 degrees */
+		context.stroke();
+		
+		/* gradient */
+		var gradient = context.createRadialGradient(370, 50, 5, 370, 50, 90); /* createLinearGradient(x1, y1, x2, y2) or createRadialGradient(x1, y1, r1, x2, y2, r2) */
+		gradient.addColorStop(0, "white");
+		gradient.addColorStop(1, "#315788");
+		context.fillStyle = gradient;
+		context.fillRect(310, 10, 80, 180); /* x1, y1, width, height */
+		
+		/* Text */
+		context.font = "24px Arial";
+		context.fillText("Hello", 410, 34);
+		context.strokeText("World", 410, 70);
+	</script>
 </html>
