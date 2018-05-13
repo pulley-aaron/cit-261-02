@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!--
+Page for Aaron Pulley's CIT 261-02 demo of JSON Parse and Stringify.
+-->
+<html lang="en-us">
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Aaron Pulley">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <link rel="shortcut icon" href="http://www.aaronpulley.net/favicon.ico">
+  <meta name="description" content="Aaron Pulley's CIT 261-02 demo of JSON Parse and Stringify">
+  <title>JSON Parse and Stringify | Aaron Pulley</title>
+</head>
+<body>
+  <h1>JSON Parse and Stringify</h1>
+  <h2>Parse</h2>
+    <p>The JavaScript on this page creates a string and prints it below.</p>
+    <code id="before"></code>
+</body>
+<script>
+  var str = '{name: "", age: 5}';
+  document.getElementById("before").innerHTML = str;
+</script>
+</html>
