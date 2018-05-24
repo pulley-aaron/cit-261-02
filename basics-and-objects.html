@@ -28,7 +28,7 @@ JavaScript Objects - Object Creation Functions, Inheritance, Properties, Methods
 		
 		class German extends Person {
 			constructor(firstName) {
-				this.firstName = firstName;
+				super(firstName);
 				this.nationality = "German";
 			}
 			
@@ -39,7 +39,7 @@ JavaScript Objects - Object Creation Functions, Inheritance, Properties, Methods
 		
 		class American extends Person {
 			constructor(firstName) {
-				this.firstName = firstName;
+				super(firstName);
 				this.nationality = "American";
 			}
 			
