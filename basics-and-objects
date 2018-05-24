@@ -37,8 +37,20 @@ JavaScript Objects - Object Creation Functions, Inheritance, Properties, Methods
 			}
 		}
 		
+		class American extends Person {
+			constructor(firstName) {
+				this.firstName = firstName;
+				this.nationality = "American";
+			}
+			
+			greet() {
+				return "Hey! I'm " + firstName + "!";
+			}
+		}
+		
 		// Instantiate in loop
-		var mark = new Person("Mark");
+		var mark = new American("Mark");
+		var dieter = new American("Dieter");
 		
 		// Test
 		document.getElementById("output").innerHTML = mark.greet();
