@@ -20,37 +20,38 @@ JavaScript Objects - Object Creation Functions, Inheritance, Properties, Methods
 		</body>
 	<script>
 		// Create classes
-		class Person {
-			constructor(firstName) {
-				this.firstName = firstName;
+		class Droid {
+			constructor(name) {
+				this.name = name;
+				this.serial = Math.ceil(Math.random()*999) + "-" + Math.ceil(Math.random()*999);
 			}
-		}
+		};
 		
-		class German extends Person {
-			constructor(firstName) {
-				super(firstName);
-				this.nationality = "German";
+		class Protocol extends Droid {
+			constructor(name) {
+				super(name);
+				this.type = "Protocol";
 			}
 			
 			greet() {
-				return "Hallo, ich bin " + this.firstName + "!";
+				return "Hello, I'm " + this.name ", " + this.type + " droid " + this.serial + ".";
 			}
-		}
+		};
 		
-		class American extends Person {
-			constructor(firstName) {
-				super(firstName);
-				this.nationality = "American";
+		class Astromech extends Droid {
+			constructor(name) {
+				super(name);
+				this.type = "Astromech";
 			}
 			
 			greet() {
-				return "Hey! I'm " + this.firstName + "!";
+				return "Beep bwerp " + this.name ", " + this.type + " buzz " + this.serial + ".";
 			}
-		}
+		};
 		
 		// Instantiate people
-		var mark = new American("Mark");
-		var dieter = new American("Dieter");
+		var p1 = new Protocol("C-3P0");
+		var dieter = new Astromech("R2-D2");
 		
 		// Test
 		document.getElementById("output").innerHTML = mark.greet();
