@@ -45,15 +45,27 @@ JavaScript Objects - Object Creation Functions, Inheritance, Properties, Methods
 			}
 			
 			greet() {
-				return "Beep bwerp " + this.name ", " + this.type + " buzz " + this.serial + ".";
+				return "Beep bwerp " + this.name + ", " + this.type + " buzz " + this.serial + ".";
 			}
 		};
 		
-		// Instantiate people
-		var p1 = new Protocol("C-3P0");
-		var dieter = new Astromech("R2-D2");
+		// Instantiate droids
+		var droidNames = {"R2-D2", "C-3PO", "RT-80", "LN-80", "Kolorbash the Destroyer"};
+		var droids = new Array();
+		for (var i = 0; i < droidNames.length; i++) {
+			if (i % 2 === 0) {
+				droids.push(new Astromech(droidNames[i]));
+			}
+			else {
+				droids.push(new Protocol(droidNames[i]));
+			}
+		}
 		
 		// Test
-		document.getElementById("output").innerHTML = mark.greet();
+		var droidList = "";
+		for (var i = 0; i < droids.length; i++) {
+			droidList.concat(droids[i].greet() + "&lt;br&gt;");
+		}
+		document.getElementById("output").innerHTML = droidList;
 	</script>
 </html>
