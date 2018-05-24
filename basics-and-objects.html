@@ -15,7 +15,7 @@ JavaScript Objects - Object Creation Functions, Inheritance, Properties, Methods
 		<title>Basics and Objects | Aaron Pulley</title>
 	</head>
 		<body>
-			<h2>Output</h2>
+			<h2 id="version">Droid Lister</h2>
 			<p id="output">Nothing is here yet.</p>
 		</body>
 	<script>
@@ -50,22 +50,32 @@ JavaScript Objects - Object Creation Functions, Inheritance, Properties, Methods
 		};
 		
 		// Instantiate droids
-		var droidNames = ["R2-D2", "C-3PO", "RT-80", "LN-80", "Kolorbash the Destroyer"];
+		const droidNames = ["C-3PO", "R2-D2", "RT-80", "LN-80", "Kolorbash the Destroyer"];
 		var droids = new Array();
-		for (var i = 0; i < droidNames.length; i++) {
-			if (i % 2 === 0) {
-				droids.push(new Astromech(droidNames[i]));
+		var makeDroid = name => {
+			if (Number.isInteger(parseInt(name.charAt(name.length - 1)))) {
+				return new Astromech(name);
 			}
 			else {
-				droids.push(new Protocol(droidNames[i]));
+				return new Protocol(name);
 			}
 		}
+		for (var i = 0; i < droidNames.length; i++) {
+			droids.push(makeDroid(droidNames[i]));
+		}
 		
-		// Test
+		// Print to page
 		var droidList = "";
 		for (var i = 0; i < droids.length; i++) {
-			droidList.concat(droids[i].greet() + "&lt;br&gt;");
+			droidList += droids[i].greet() + "<br>";
 		}
 		document.getElementById("output").innerHTML = droidList;
+		
+		// Associative array
+		var app = {
+			software: "Droid Lister",
+			version: Math.random()*10
+		}
+		document.getElementById("version").innerHTML += " v" + app.version.toFixed(2);
 	</script>
 </html>
