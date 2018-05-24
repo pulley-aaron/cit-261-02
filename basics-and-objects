@@ -6,28 +6,41 @@ and
 JavaScript Objects - Object Creation Functions, Inheritance, Properties, Methods, Instantiation.
 -->
 <html lang="en-us">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="author" content="Aaron Pulley">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-        <link rel="shortcut icon" href="http://www.aaronpulley.net/favicon.ico">
-        <meta name="description" content="Aaron Pulley's CIT 261-02 demo of demo of JavaScript - Loops, Conditional Statements, Functions, Variables, Parameters, Arrays, Associative Arrays and JavaScript Objects - Object Creation Functions, Inheritance, Properties, Methods, Instantiation">
-        <title>Basics and Objects | Aaron Pulley</title>
-    </head>
-    <body>
-      <h2>Audio</h2>
-				<p>Below, I demonstrate my ability to include audio files on a web page.</p>
-				<p>Here's something I made from the sample files in <a href="http://www.magix.com/us/music-maker/">MAGIX Music Maker</a>.</p>
-				<audio controls preload="none">
-					<source src="http://www.aaronpulley.net/audio/test2.OGG">
-					<source src="http://www.aaronpulley.net/audio/test3.MP3">
-					<p>Your browser does not support HTML5 audio.</p>
-				</audio>
-				<br>
-				<a href="http://www.aaronpulley.net/audio/test2.MP3" download>Download test2.MP3 (667 KB)</a>
-    </body>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="author" content="Aaron Pulley">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<link rel="shortcut icon" href="http://www.aaronpulley.net/favicon.ico">
+		<meta name="description" content="Aaron Pulley's CIT 261-02 demo of demo of JavaScript - Loops, Conditional Statements, Functions, Variables, Parameters, Arrays, Associative Arrays and JavaScript Objects - Object Creation Functions, Inheritance, Properties, Methods, Instantiation">
+		<title>Basics and Objects | Aaron Pulley</title>
+	</head>
+		<body>
+			<h2>Output</h2>
+			<p class="output">Nothing is here yet.</p>
+		</body>
 	<script>
-		var canvas = document.getElementById('awp-canvas');
-		var context = canvas.getContext('2d');
+		// Create classes
+		class Person {
+			constructor(firstName) {
+				this.firstName = firstName;
+			}
+		}
+		
+		class German extends Person {
+			constructor(firstName) {
+				this.firstName = firstName;
+				this.nationality = "German";
+			}
+			
+			greet() {
+				return "Hallo, ich bin " + firstName + "!";
+			}
+		}
+		
+		// Instantiate in loop
+		var mark = new Person("Mark");
+		
+		// Test
+		document.getElementById("output").innerHTML = mark.greet();
 	</script>
 </html>
