@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!--
+Page for Aaron Pulley's CIT 261-02 demo of 
+CSS animations, transforms, and transitions, 
+triggered with and without JavaScript.
+-->
+<html lang="en-us">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="author" content="Aaron Pulley">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<link rel="shortcut icon" href="http://www.aaronpulley.net/favicon.ico">
+		<meta name="description" content="Aaron Pulley's CIT 261-02 demo of demo of CSS animations, transforms, and transitions, triggered with and without JavaScript">
+		<title>Animations, Transforms, Transitions | Aaron Pulley</title>
+		<style>
+			
+			/*
+			CSS Transition (A to B)
+			https://www.w3schools.com/css/css3_transitions.asp
+			*/
+			#css-transitioned {
+				display: inline-block;
+				background: red;
+				padding: 0px 16px;
+				height: 50px;
+				width: 200px;
+				/* transition: property | duration | timing-function | delay; */
+				transition: width 1s ease-in, height 4s ease-out 1.5s;
+				/* Timing Functions: ease, linear, ease-in, ease-out, ease-in-out, cubic-bezier(n,n,n,n) */
+			}
+			#css-transitioned:hover {
+				height: 100px;
+				width: 400px;
+			}
+			
+			/*
+			CSS Animation (A to B to C to D, vs. A to B)
+			https://www.w3schools.com/css/css3_animations.asp
+			https://cssanimation.rocks/transition-vs-animation/
+			https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations
+			https://css-tricks.com/almanac/properties/a/animation/
+			https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties
+			https://www.creativebloq.com/inspiration/css-animation-examples
+			*/
+			#css-animated {
+				display: inline-block;
+				background: green;
+				padding: 0px 16px;
+			}
+			@keyframes animation-1 {   /* "from" = 0%, "to" = 100% */
+				0% {
+					background: green;
+					border-radius: 1px;
+				}
+				50% {
+					background: red;
+					border-radius: 1px;
+				}
+				100% {
+					background: red;
+					border-radius: 100px;
+				}
+			}
+			#css-animated:hover {
+				/* animation: name | duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
+				animation: animation-1 4s ease-in-out 1000ms 5 alternate both;
+				/* Timing Functions: ease, linear, ease-in, ease-out, ease-in-out, cubic-bezier(n,n,n,n) */
+				/* Delay: s or ms, -2s starts 2000ms into animation */
+				/* Iteration Count: integer, or can use "infinite" */
+				/* Animation Direction: normal, reverse, alternate, alternate-reverse; in alternates, each direction counts as 1 iteration */
+				/* Fill Modes: none, forwards, backwards, both */
+			}
+		</style>
+	</head>
+		<body>
+			<h2>Triggered by CSS</h2>
+			<h4>Transition</h4>
+			<div id="css-transitioned">
+				<p>Changing width and height</p>
+			</div>
+			<h4>Animation</h4>
+			<div id="css-animated">
+				<p>Changing color and font</p>
+			</div>
+			<h4>Transform</h4>
+			<div id="css-transformed"></div>
+			
+			<h2>Triggered by JavaScript</h2>
+			<h4>Transition</h4>
+			<div id="js-transitioned"></div>
+			<h4>Animation</h4>
+			<div id="js-animated"></div>
+			<h4>Transform</h4>
+			<div id="js-transformed"></div>
+		</body>
+	<script>
+		
+	</script>
+</html>
