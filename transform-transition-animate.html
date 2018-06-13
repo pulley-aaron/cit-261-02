@@ -62,13 +62,53 @@ triggered with and without JavaScript.
 				}
 			}
 			#css-animated:hover {
-				/* animation: name | duration | timing-function | delay | iteration-count | direction | fill-mode | play-state; */
+				/* animation: name | duration | timing-function | delay | iteration-count | direction | fill-mode; */
 				animation: animation-1 4s ease-in-out 1000ms 5 alternate both;
 				/* Timing Functions: ease, linear, ease-in, ease-out, ease-in-out, cubic-bezier(n,n,n,n) */
 				/* Delay: s or ms, -2s starts 2000ms into animation */
 				/* Iteration Count: integer, or can use "infinite" */
 				/* Animation Direction: normal, reverse, alternate, alternate-reverse; in alternates, each direction counts as 1 iteration */
 				/* Fill Modes: none, forwards, backwards, both */
+			}
+			
+			/*
+			
+			CSS Transforms
+			https://www.w3schools.com/css/css3_2dtransforms.asp
+			*/
+			#css-transformed {
+				display: inline-block;
+				background: orange;
+				padding: 0px 16px;
+			}
+			@keyframes animation-2 {   /* "from" = 0%, "to" = 100% */
+				/* All parameter pairs are "x, y" values */
+				0% {}
+				9% {   /* windup */
+					transform: skew(15deg, 0deg);
+				}
+				13% {   /* accelerate */
+					transform: translate(0px, 0px) scale(1.5, 0.7) skew(-25deg, 0deg);
+				}
+				40% {   /* travel */
+					transform: translate(500px, 0px) scale(1.5, 0.7) skew(-25deg, 0deg);
+				}
+				42% {   /* splat */
+					transform: translate(550px, 0px) scale(0.5, 2) skew(0deg, 0deg);
+				}
+				50% {   /* collapse */
+					transform: translate(550px, 0px) scale(1, 1);
+				}
+				85% {   /* sit there */
+					transform: translate(550px, 0px) rotate(0deg);
+				}
+				100% {   /* return */
+					transform: translate(0px, 0px) rotate(-720deg);
+				}
+			}
+			#css-transformed:hover {
+				/* animation: name | duration | timing-function | delay | iteration-count | direction | fill-mode; */
+				animation: animation-2 2.5s linear 0s 1 normal both;
 			}
 		</style>
 	</head>
@@ -83,7 +123,9 @@ triggered with and without JavaScript.
 				<p>Changing color and font</p>
 			</div>
 			<h4>Transform</h4>
-			<div id="css-transformed"></div>
+			<div id="css-transformed">
+				<p>Transforming!</p>
+			</div>
 			
 			<h2>Triggered by JavaScript</h2>
 			<h4>Transition</h4>
