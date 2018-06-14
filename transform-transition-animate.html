@@ -12,20 +12,58 @@ triggered with and without JavaScript.
 		<link rel="shortcut icon" href="http://www.aaronpulley.net/favicon.ico">
 		<meta name="description" content="Aaron Pulley's CIT 261-02 demo of demo of CSS animations, transforms, and transitions, triggered with and without JavaScript">
 		<title>Animations, Transforms, Transitions | Aaron Pulley</title>
+		<link href="https://fonts.googleapis.com/css?family=Raleway:400,800" rel="stylesheet">
 		<style>
-			
 			/*
-			CSS Transition (A to B)
-			https://www.w3schools.com/css/css3_transitions.asp
+			* Common Styling
+			*/
+			body {
+				background: #315788;
+				color: white;
+				font-family: 'Raleway', sans-serif;
+				font-weight: 400;
+				padding: 0 5%;
+			}
+			h1, h2, h3, h4, h5, h5 {
+				font-weight: 800;
+			}
+			a {
+				color: white;
+				text-decoration: none;
+			}
+			h2 {
+				margin-top: 30px;
+			}
+			a:hover {
+				text-decoration: underline;
+			}
+			header {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				margin-bottom: 30px;
+			}
+			header h1 {
+				display: inline-block;
+			}
+			nav {
+				display: inline-block;
+				font-weight: 800;
+			}
+		</style>
+		<style>
+			/*
+			* CSS Transition (A to B)
+			* https://www.w3schools.com/css/css3_transitions.asp
 			*/
 			#css-transitioned {
 				display: inline-block;
 				background: red;
 				padding: 0px 16px;
 				height: 50px;
-				width: 200px;
+				width: 210px;
 				/* transition: property | duration | timing-function | delay; */
-				transition: width 1s ease-in, height 4s ease-out 1.5s;
+				transition: width 0.5s ease-in, height 2s ease-out 1s;
 				/* Timing Functions: ease, linear, ease-in, ease-out, ease-in-out, cubic-bezier(n,n,n,n) */
 			}
 			#css-transitioned:hover {
@@ -34,13 +72,13 @@ triggered with and without JavaScript.
 			}
 			
 			/*
-			CSS Animation (A to B to C to D, vs. A to B)
-			https://www.w3schools.com/css/css3_animations.asp
-			https://cssanimation.rocks/transition-vs-animation/
-			https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations
-			https://css-tricks.com/almanac/properties/a/animation/
-			https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties
-			https://www.creativebloq.com/inspiration/css-animation-examples
+			* CSS Animation (A to B to C to D, vs. A to B)
+			* https://www.w3schools.com/css/css3_animations.asp
+			* https://cssanimation.rocks/transition-vs-animation/
+			* https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations
+			* https://css-tricks.com/almanac/properties/a/animation/
+			* https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animated_properties
+			* https://www.creativebloq.com/inspiration/css-animation-examples
 			*/
 			#css-animated {
 				display: inline-block;
@@ -72,9 +110,8 @@ triggered with and without JavaScript.
 			}
 			
 			/*
-			
-			CSS Transforms
-			https://www.w3schools.com/css/css3_2dtransforms.asp
+			* CSS Transforms
+			* https://www.w3schools.com/css/css3_2dtransforms.asp
 			*/
 			#css-transformed {
 				display: inline-block;
@@ -113,27 +150,34 @@ triggered with and without JavaScript.
 		</style>
 	</head>
 		<body>
-			<h2>Triggered by CSS</h2>
-			<h4>Transition</h4>
-			<div id="css-transitioned">
-				<p>Changing width and height</p>
-			</div>
-			<h4>Animation</h4>
-			<div id="css-animated">
-				<p>Changing color and font</p>
-			</div>
-			<h4>Transform</h4>
-			<div id="css-transformed">
-				<p>Transforming!</p>
-			</div>
-			
-			<h2>Triggered by JavaScript</h2>
-			<h4>Transition</h4>
-			<div id="js-transitioned"></div>
-			<h4>Animation</h4>
-			<div id="js-animated"></div>
-			<h4>Transform</h4>
-			<div id="js-transformed"></div>
+			<header>
+				<h1><a href="https://pulley-aaron.github.io/cit-261-02/">Aaron Pulley CIT 261-02</a></h1>
+				<nav><a href="https://pulley-aaron.github.io/cit-261-02/#">Home</a></nav>
+			</header>
+			<main>
+				<h1>Transitions, Transforms & Animations</h1>
+				<h2>Triggered by CSS</h2>
+				<h4>Transition</h4>
+				<div id="css-transitioned">
+					<p>Changing width and height</p>
+				</div>
+				<h4>Animation</h4>
+				<div id="css-animated">
+					<p>Changing color and corners</p>
+				</div>
+				<h4>Transform</h4>
+				<div id="css-transformed">
+					<p>Transforming!</p>
+				</div>
+				
+				<h2>Triggered by JavaScript</h2>
+				<h4>Transition</h4>
+				<div id="js-transitioned"></div>
+				<h4>Animation</h4>
+				<div id="js-animated"></div>
+				<h4>Transform</h4>
+				<div id="js-transformed"></div>
+			</main>
 		</body>
 	<script>
 		
