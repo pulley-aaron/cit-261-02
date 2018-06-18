@@ -22,7 +22,7 @@ triggered with and without JavaScript.
 				color: white;
 				font-family: 'Raleway', sans-serif;
 				font-weight: 400;
-				padding: 0 5%;
+				padding: 0 5% 70px;
 			}
 			h1, h2, h3, h4, h5, h5 {
 				font-weight: 800;
@@ -63,7 +63,7 @@ triggered with and without JavaScript.
 				height: 50px;
 				width: 210px;
 				/* transition: property | duration | timing-function | delay; */
-				transition: width 0.5s ease-in, height 2s ease-out 1s;
+				transition: width 0.5s ease-in-out, height 2s ease-out 1s;
 				/* Timing Functions: ease, linear, ease-in, ease-out, ease-in-out, cubic-bezier(n,n,n,n) */
 			}
 			#css-transitioned:hover {
@@ -110,7 +110,7 @@ triggered with and without JavaScript.
 			}
 			
 			/*
-			* CSS Transforms
+			* CSS Transform
 			* https://www.w3schools.com/css/css3_2dtransforms.asp
 			*/
 			#css-transformed {
@@ -147,6 +147,50 @@ triggered with and without JavaScript.
 				/* animation: name | duration | timing-function | delay | iteration-count | direction | fill-mode; */
 				animation: animation-2 2.5s linear 0s 1 normal both;
 			}
+			
+			/*
+			* CSS Transition triggered by JavaSrcipt
+			* This is customarily done by manipulating classes with JavaScript.
+			*/
+			#js-transitioned {
+				display: inline-block;
+				background: red;
+				padding: 0px 16px;
+				height: 50px;
+				width: 210px;
+				transition: width 0.5s ease-in-out, height 2s ease-out 1s
+			}
+			.js-transitioned-on {  /* This will be etriggered by JavaScript */
+				height: 100px !important;
+				width: 400px !important;
+			}
+			
+			/*
+			* CSS Animation triggered by JavaSrcipt
+			* This is customarily done by manipulating classes with JavaScript.
+			*/
+			#js-animated {
+				display: inline-block;
+				background: green;
+				padding: 0px 16px;
+			}
+			#js-animated-on {
+				animation: animation-1 4s ease-in-out 1000ms 5 alternate both;
+			}
+			
+			/*
+			* CSS Transform triggered by JavaSrcipt
+			* This is customarily done by manipulating classes with JavaScript.
+			*/
+			#js-transformed {
+				display: inline-block;
+				background: orange;
+				padding: 0px 16px;
+				transition: transform 0.5s ease-in-out;
+			}
+			#js-transformed-on {
+				transform: scale(1.5, 0.7) skewX(-25deg);
+			}
 		</style>
 	</head>
 		<body>
@@ -158,28 +202,77 @@ triggered with and without JavaScript.
 				<h1>Transitions, Transforms & Animations</h1>
 				<h2>Triggered by CSS</h2>
 				<h4>Transition</h4>
+				<p>Hover the mouse over this button.</p>
 				<div id="css-transitioned">
 					<p>Changing width and height</p>
 				</div>
 				<h4>Animation</h4>
+				<p>Hover the mouse over this button.</p>
 				<div id="css-animated">
 					<p>Changing color and corners</p>
 				</div>
 				<h4>Transform</h4>
+				<p>Hover the mouse over this button.</p>
 				<div id="css-transformed">
 					<p>Transforming!</p>
 				</div>
 				
 				<h2>Triggered by JavaScript</h2>
 				<h4>Transition</h4>
-				<div id="js-transitioned"></div>
+				<p>Click this button.</p>
+				<div id="js-transitioned">
+					<p>Changing width and height</p>
+				</div>
 				<h4>Animation</h4>
-				<div id="js-animated"></div>
+				<p>Click this button.</p>
+				<div id="js-animated">
+					<p>Changing color and corners</p>
+				</div>
 				<h4>Transform</h4>
-				<div id="js-transformed"></div>
+				<p>Click this button.</p>
+				<div id="js-transformed">
+					<p>Transforming!</p>
+				</div>
 			</main>
 		</body>
 	<script>
+		/* Useful function */
+		function toggleClass(className, element) {
+			if (element.classList.contains(className)) {
+				element.classList.remove(className);
+			}
+			else {
+				element.classList.add(className);
+				/* Replace node to trigger animation */
+				var newElement = element.cloneNode(true);
+				newElement.onclick = element.getAttributeNode('onclick').nodeValue;
+				element.parentNode.replaceChild(newElement, element);
+			}
+		}
 		
+		/* Trigger transition */
+		var transitionElement = document.getElementById("js-transitioned");
+		transitionElement.onclick = function() {
+			toggleClass("js-transitioned-on", transitionElement);
+		}
+		
+		/* Trigger animation */
+		var animationElement = document.getElementById("js-animated");
+		animationElement.onclick = function() {
+			animationElement.style.animationPlayState = "running";
+
+			animationElement.on('webkitAnimationEnd', function() {
+			animationElement.style.animationPlayState = "paused";
+			});
+			
+			
+			//toggleClass("js-animated-on", animationElement);
+		}
+		
+		/* Trigger transform */
+		var transformElement = document.getElementById("js-transformed");
+		transformElement.onclick = function() {
+			toggleClass("js-transformed-on", transformElement);
+		}
 	</script>
 </html>
