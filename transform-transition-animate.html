@@ -173,24 +173,22 @@ triggered with and without JavaScript.
 				display: inline-block;
 				background: green;
 				padding: 0px 16px;
-			}
-			#js-animated-on {
-				animation: animation-1 4s ease-in-out 1000ms 5 alternate both;
+				animation: animation-1 2s ease-in-out 0ms infinite alternate;
 			}
 			
 			/*
 			* CSS Transform triggered by JavaSrcipt
 			* This is customarily done by manipulating classes with JavaScript.
-			*/
+			*
 			#js-transformed {
 				display: inline-block;
 				background: orange;
 				padding: 0px 16px;
-				transition: transform 0.5s ease-in-out;
+				transition: all 0.5s ease-in-out;
 			}
 			#js-transformed-on {
 				transform: scale(1.5, 0.7) skewX(-25deg);
-			}
+			}*/
 		</style>
 	</head>
 		<body>
@@ -224,15 +222,17 @@ triggered with and without JavaScript.
 					<p>Changing width and height</p>
 				</div>
 				<h4>Animation</h4>
-				<p>Click this button.</p>
+				<p>Click this button to pause and play.</p>
 				<div id="js-animated">
 					<p>Changing color and corners</p>
 				</div>
+				<!--
 				<h4>Transform</h4>
 				<p>Click this button.</p>
 				<div id="js-transformed">
 					<p>Transforming!</p>
 				</div>
+				-->
 			</main>
 		</body>
 	<script>
@@ -256,23 +256,21 @@ triggered with and without JavaScript.
 			toggleClass("js-transitioned-on", transitionElement);
 		}
 		
-		/* Trigger animation */
+		/* Pause/play animation */
 		var animationElement = document.getElementById("js-animated");
 		animationElement.onclick = function() {
-			animationElement.style.animationPlayState = "running";
-
-			animationElement.on('webkitAnimationEnd', function() {
-			animationElement.style.animationPlayState = "paused";
-			});
-			
-			
-			//toggleClass("js-animated-on", animationElement);
+			if (animationElement.style.animationPlayState === "paused") {
+				animationElement.style.animationPlayState = "running";
+			}
+			else {
+				animationElement.style.animationPlayState = "paused";
+			}
 		}
 		
-		/* Trigger transform */
+		/* Trigger transform *
 		var transformElement = document.getElementById("js-transformed");
 		transformElement.onclick = function() {
 			toggleClass("js-transformed-on", transformElement);
-		}
+		}*/
 	</script>
 </html>
