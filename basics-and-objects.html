@@ -1,24 +1,68 @@
 <!DOCTYPE html>
 <!--
-Page for Aaron Pulley's CIT 261-02 demo of 
-JavaScript - Loops, Conditional Statements, Functions, Variables, Parameters, Arrays, Associative Arrays
-and
-JavaScript Objects - Object Creation Functions, Inheritance, Properties, Methods, Instantiation.
+Page for Aaron Pulley's CIT 261-02 demo of
+JavaScript - Loops, Conditional Statements, Functions, 
+Variables, Parameters, Arrays, Associative Arrays 
+and 
+JavaScript Objects - Object Creation Functions, 
+Inheritance, Properties, Methods, Instantiation
 -->
 <html lang="en-us">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="author" content="Aaron Pulley">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 		<link rel="shortcut icon" href="http://www.aaronpulley.net/favicon.ico">
-		<meta name="description" content="Aaron Pulley's CIT 261-02 demo of demo of JavaScript - Loops, Conditional Statements, Functions, Variables, Parameters, Arrays, Associative Arrays and JavaScript Objects - Object Creation Functions, Inheritance, Properties, Methods, Instantiation">
-		<title>Basics and Objects | Aaron Pulley</title>
+		<meta name="description" content="Aaron Pulley's CIT 261-02 demo of JavaScript - Loops, Conditional Statements, Functions, Variables, Parameters, Arrays, Associative Arrays and JavaScript Objects - Object Creation Functions, Inheritance, Properties, Methods, Instantiation">
+		<title>JS Basics and Objects | Aaron Pulley</title>
+		<link href="https://fonts.googleapis.com/css?family=Raleway:400,800" rel="stylesheet">
+		<style>
+			/*
+			* Common Styling
+			*/
+			body {
+				background: #550600;
+				color: white;
+				font-family: 'Raleway', sans-serif;
+				font-weight: 400;
+				padding: 0 5% 70px;
+			}
+			h1, h2, h3, h4, h5, h5 {
+				font-weight: 800;
+			}
+			a {
+				color: white;
+				text-decoration: none;
+			}
+			h2 {
+				margin-top: 30px;
+			}
+			a:hover {
+				text-decoration: underline;
+			}
+			header {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				margin-bottom: 30px;
+			}
+			header h1 {
+				display: inline-block;
+			}
+			nav {
+				display: inline-block;
+				font-weight: 800;
+			}
+		</style>
 	</head>
-		<body>
-			<h2 id="version">Droid Lister</h2>
-			<p id="output">Nothing is here yet.</p>
-			<p>(See source code to see how this meets requirements.)</p>
-		</body>
+	<body>
+		<header>
+			<h1><a href="https://pulley-aaron.github.io/cit-261-02/">Aaron Pulley CIT 261-02</a></h1>
+			<nav><a href="https://pulley-aaron.github.io/cit-261-02/#">Home</a></nav>
+		</header>
+		<h1 id="version">Droid Lister</h1>
+		<p id="output">Nothing is here yet.</p>
+		<p>(See source code to see how this meets requirements.)</p>
+	</body>
 	<script>
 		// Create classes
 		class Droid {

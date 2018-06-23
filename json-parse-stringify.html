@@ -1,36 +1,79 @@
 <!DOCTYPE html>
 <!--
-Page for Aaron Pulley's CIT 261-02 demo of JSON Parse and Stringify.
+Page for Aaron Pulley's CIT 261-02 demo of JSON Parse and Stringify
 -->
 <html lang="en-us">
-<head>
-  <meta charset="UTF-8">
-  <meta name="author" content="Aaron Pulley">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <link rel="shortcut icon" href="http://www.aaronpulley.net/favicon.ico">
-  <meta name="description" content="Aaron Pulley's CIT 261-02 demo of JSON Parse and Stringify">
-  <title>JSON Parse and Stringify | Aaron Pulley</title>
-</head>
-<body>
-  <h1>JSON Parse and Stringify</h1>
-  <h2>Parse</h2>
-    <p>The JavaScript on this page creates a string and prints it below.</p>
-    <code id="before"></code>
-    <p>It then uses JSON.parse() to convert the string into an object. It proves this by replacing the age with a random integer. you can refresh the page multiple times to prove it's random.</p>
-    <p>Finally, it uses JSON.stringify() to convert the object back into a string. It proves this by printing the string below using the .toUpperCase() method.</p>
-    <code id="after"></code>
-</body>
-<script>
-  /* Create object string */
-  var str = '{"name": "Mark", "age": 5}';
-  document.getElementById("before").innerHTML = str;
-  
-  /* String to object, change age */
-  var obj = JSON.parse(str);
-  obj.age = Math.ceil(Math.random()*100);
-  
-  /* Object to string, print uppercase */
-  var str2 = JSON.stringify(obj);
-  document.getElementById("after").innerHTML = str2.toUpperCase();
-</script>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="author" content="Aaron Pulley">
+		<link rel="shortcut icon" href="http://www.aaronpulley.net/favicon.ico">
+		<meta name="description" content="Aaron Pulley's CIT 261-02 demo of JSON Parse and Stringify">
+		<title>JSON Parse and Stringify | Aaron Pulley</title>
+		<link href="https://fonts.googleapis.com/css?family=Raleway:400,800" rel="stylesheet">
+		<style>
+			/*
+			* Common Styling
+			*/
+			body {
+				background: #2d055f;
+				color: white;
+				font-family: 'Raleway', sans-serif;
+				font-weight: 400;
+				padding: 0 5% 70px;
+			}
+			h1, h2, h3, h4, h5, h5 {
+				font-weight: 800;
+			}
+			a {
+				color: white;
+				text-decoration: none;
+			}
+			h2 {
+				margin-top: 30px;
+			}
+			a:hover {
+				text-decoration: underline;
+			}
+			header {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				margin-bottom: 30px;
+			}
+			header h1 {
+				display: inline-block;
+			}
+			nav {
+				display: inline-block;
+				font-weight: 800;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1><a href="https://pulley-aaron.github.io/cit-261-02/">Aaron Pulley CIT 261-02</a></h1>
+			<nav><a href="https://pulley-aaron.github.io/cit-261-02/#">Home</a></nav>
+		</header>
+		<main>
+			<h1>JSON Parse and Stringify</h1>
+			<p>The JavaScript on this page creates a string and prints it below.</p>
+			<code id="before"></code>
+			<p>It then uses JSON.parse() to convert the string into an object. It proves this by replacing the age with a random integer. you can refresh the page multiple times to prove it's random.</p>
+			<p>Finally, it uses JSON.stringify() to convert the object back into a string. It proves this by printing the string below using the .toUpperCase() method.</p>
+			<code id="after"></code>
+		</main>
+	</body>
+	<script>
+		/* Create object string */
+		var str = '{"name": "Mark", "age": 5}';
+		document.getElementById("before").innerHTML = str;
+
+		/* String to object, change age */
+		var obj = JSON.parse(str);
+		obj.age = Math.ceil(Math.random()*100);
+
+		/* Object to string, print uppercase */
+		var str2 = JSON.stringify(obj);
+		document.getElementById("after").innerHTML = str2.toUpperCase();
+	</script>
 </html>
