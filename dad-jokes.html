@@ -123,133 +123,7 @@ class property manipulation
 
             <div id="dad-joke-machine">
                 <div id="dad-joke-bubble" class="speech-bubble">
-                        <p id="dad-joke" >This is a Dad joke!</p>
-                </div><!DOCTYPE html>
-<!--
-Page for Aaron Pulley's CIT 261-02 demo of
-JavaScript events, localStorage, AJAX, and 
-class property manipulation
--->
-<html lang="en-us">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="author" content="Aaron Pulley">
-        <link rel="shortcut icon" href="http://www.aaronpulley.net/favicon.ico">
-        <meta name="description" content="Aaron Pulley's CIT 261-02 demo of JavaScript events, localStorage, AJAX, and class property manipulation">
-        <title>JS Events, LocalStorage, AJAX, Class Property Manipulation | Aaron Pulley</title>
-        <link href="https://fonts.googleapis.com/css?family=Raleway:400,800" rel="stylesheet">
-        <style>
-            /*
-            * Common Styling
-            */
-            body {
-                background: #01669c;
-                color: white;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 400;
-                padding: 0 5% 70px;
-            }
-            h1, h2, h3, h4, h5, h5 {
-                font-weight: 800;
-            }
-            a {
-                color: white;
-                text-decoration: none;
-            }
-            h2 {
-                margin-top: 30px;
-            }
-            a:hover {
-                text-decoration: underline;
-            }
-            header {
-                display: flex;
-                justify-content: space-between;
-                align-items: baseline;
-                margin-bottom: 30px;
-            }
-            header h1 {
-                display: inline-block;
-            }
-            nav {
-                display: inline-block;
-                font-weight: 800;
-            }
-        </style>
-        <style>
-            /*
-            * Project styling
-            */
-            
-            /* Content positioning */
-            #dad-joke-machine {
-                margin: 0 auto;
-                width: 80%;
-                max-width: 400px;
-            }
-
-            /* Word bubbles */
-            .speech-bubble {
-                position: relative;
-                min-height: 4em;
-                margin: 2em 0;
-                padding: 1em;
-                border-radius: 1em;
-                background: white;
-                color: #222222;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-            #dad-joke-bubble:after {
-                content: "";
-                position: absolute;
-                top: 50%;
-                right: 0;
-                width: 0;
-                height: 0;
-                border-width: 2.6em 0 0 2.6em;
-                border-style: solid;
-                border-color: transparent;
-                border-left-color: white;
-                margin-right: -2.6em;
-                margin-top: -1.3em;
-            }
-            #new-joke-bubble:after {
-                content: "";
-                position: absolute;
-                top: 50%;
-                left: 0;
-                width: 0;
-                height: 0;
-                border-width: 0 2.6em 2.6em 0;
-                border-style: solid;
-                border-color: transparent;
-                border-right-color: white;
-                margin-left: -2.6em;
-                margin-top: -1.3em;
-            }
-            
-            /* Button */
-            #new-joke-bubble #new-joke-button {
-                padding: 0.5em;
-                border-radius: 0.7em;
-                font: inherit;
-            }
-        </style>
-    </head>
-    <body>
-        <header>
-            <h1><a href="https://pulley-aaron.github.io/cit-261-02/">Aaron Pulley CIT 261-02</a></h1>
-            <nav><a href="https://pulley-aaron.github.io/cit-261-02/#">Home</a></nav>
-        </header>
-        <main>
-            <h1>The Dad Joke Machine</h1>
-            <p>A demo of JS events, localStorage, AJAX, and class property manipulation.</p>
-
-            <div id="dad-joke-machine">
-                <div id="dad-joke-bubble" class="speech-bubble">
-                        <p>This is a Dad joke!</p>
+                        <p id="dad-joke" >This is the default dad joke!</p>
                 </div>
                 <div id="new-joke-bubble" class="speech-bubble">
                     <button id="new-joke-button">Tell another joke dad!</button>
@@ -258,21 +132,87 @@ class property manipulation
         </main>
     </body>
     <script>
-    </script>
-</html>
-                <div id="new-joke-bubble" class="speech-bubble">
-                    <button id="new-joke-button">Tell another joke dad!</button>
-                </div>
-            </div>
-        </main>
-    </body>
-	<script>
-		function getJoke() {
-			document.getElementById("dad-joke").innerHTML = "Joke " + Math.ceil(Math.random()*100);
-		}
-		
-		document.getElementById("dad-joke").onload = getJoke();
-		
-		document.getElementById("new-joke-button").onclick = getJoke;
+        /* Initialize old joke storage */
+        var oldJokes = [];
+        localStorage.setItem("oldJokes", JSON.stringify(oldJokes));
+        
+        function setButtonText(text) {
+            document.getElementById("new-joke-button").innerHTML = text;
+        }
+        
+        function setJoke(joke, error) {
+            if (!error) {  /* Don't store error messages */
+                oldJokes = JSON.parse(localStorage.getItem("oldJokes"));
+                
+                if (!oldJokes.includes(joke)) { /* If not an old joke, store */
+                    /* Add to old jokes */
+                    oldJokes.unshift(joke);
+                    /* Cap old jokes at most recent 20 */
+                    while (oldJokes.length > 20) {
+                        oldJokes.pop();
+                    }
+                    /* Return old jokes to storage */
+                    localStorage.setItem("oldJokes", JSON.stringify(oldJokes));
+                    
+                    /* Set button to normal text */
+                    setButtonText("Tell another joke dad!");
+                }
+                else { /* Trigger notice for old jokes, do not store */
+                    setButtonText("You already told that one! Try again!");
+                }
+            }
+            
+            /* Set joke */
+            document.getElementById("dad-joke").innerHTML = joke;
+        }
+        
+        function ajaxNewJoke() {
+            /* Create request object */
+            var request = new XMLHttpRequest();
+            request.open("Get", "https://icanhazdadjoke.com/");
+            request.setRequestHeader("Accept", "application/json");
+            
+            /* Set function to execust when request is finished */
+            request.onload = function() {
+                let joke = "Your request could not be completed due to an unidentified error.";
+                let error = 1;
+                
+                if (request.status == 200) {
+                    joke = JSON.parse(request.response).joke;
+                    error = 0;
+                }
+                else {
+                    joke = "Your request could not be completed due to an error: " + request.status + " " + request.statusText;
+                }
+                
+                setJoke(joke, error);
+            }
+            
+            /* Send request */
+            request.send();
+        }
+        
+        function reuseJoke() {
+            oldJokes = JSON.parse(localStorage.getItem("oldJokes"));
+            /* Use joke form older half of list */
+            setJoke(oldJokes[Math.floor(Math.random()*oldJokes.length/2 + oldJokes.length/2)], 0);
+        }
+        
+        function changeJoke() {
+            if(Math.random() < 0.1) { /* With 1/10 chance, tell an old joke */
+                reuseJoke();
+            }
+            else {
+                ajaxNewJoke();
+            }
+        }
+
+        window.onload = function() {
+            changeJoke();
+        }
+
+        document.getElementById("new-joke-button").onclick = function() {
+            changeJoke();
+        }
     </script>
 </html>
