@@ -74,7 +74,6 @@ class property manipulation
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                overflow: hidden;
             }
             #dad-joke-bubble:after {
                 content: "";
@@ -89,7 +88,6 @@ class property manipulation
                 border-left-color: white;
                 margin-right: -2.55em;
                 margin-top: -1.3em;
-                transition: width 1s ease 3s;
             }
             #new-joke-bubble:after {
                 content: "";
@@ -104,6 +102,9 @@ class property manipulation
                 border-right-color: white;
                 margin-left: -2.55em;
                 margin-top: -1.3em;
+            }
+            #new-joke-bubble.red:after {
+                border-right-color: #ffaaaa;
             }
             
             /* Button */
@@ -142,6 +143,18 @@ class property manipulation
             document.getElementById("new-joke-button").innerHTML = text;
         }
         
+        function highlightButton(highlight) {
+            var element = document.getElementById("new-joke-bubble");
+            if (highlight) {
+                element.style.backgroundColor = "#ffaaaa";
+                element.classList.add("red");
+            }
+            else {
+                element.style.backgroundColor = "white";
+                element.classList.remove("red");
+            }
+        }
+        
         function setJoke(joke, error) {
             if (!error) {  /* Don't store error messages */
                 oldJokes = JSON.parse(localStorage.getItem("oldJokes"));
@@ -158,9 +171,11 @@ class property manipulation
                     
                     /* Set button to normal text */
                     setButtonText("Tell another joke dad!");
+                    highlightButton(false);
                 }
                 else { /* Trigger notice for old jokes, do not store */
                     setButtonText("You already told that one! Try again!");
+                    highlightButton(true);
                 }
             }
             
@@ -201,18 +216,12 @@ class property manipulation
         }
         
         function changeJoke() {
-            /* Close word bubble *
-            document.getElementById("dad-joke-bubble").style.width = "1px";
-            
-            /* Switch joke */
             if(Math.random() < 0.1) { /* With 1/10 chance, tell an old joke */
                 reuseJoke();
             }
             else {
                 ajaxNewJoke();
             }
-            
-            /* Reopen word bubble */
         }
 
         window.onload = function() {
@@ -221,7 +230,6 @@ class property manipulation
 
         document.getElementById("new-joke-button").onclick = function() {
             changeJoke();
-            document.getElementById("dad-joke-bubble").style.width = "1px";
         }
     </script>
 </html>
