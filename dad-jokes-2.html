@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<!--
+Page for Aaron Pulley's CIT 261-02 final project
+y 1.  JavaScript -Loops, Conditional Statements, Functions, Variables, Parameters, Arrays, Associative Arrays
+- 2.  JavaScript Objects -Object Creation Functions, Inheritance, Properties, Methods, Instantiation
+y 3.  JSONParse, Stringify
+y 4.  AJAXrequesting a JSON file
+y 5.  Local StorageAPI, Storing and Retrieving Simple Data, Arrays, Associative Arrays, and Objects
+- 6.  DOM Manipulation Using createElement, appendChild, insertBefore, removeChild, etc.
+y 7.  Manipulating CSS Class Properties Using JavaScript
+- 8.  Creating CSS3 Transitions and Animations in CSS and triggering them with JavaScript
+y 9.  Standard JavaScript Events Including those for Mobile Devices ( Ex. onTouchBegin, onLoad, etc.) and Animation and Transition Events
+- 10. HTML5 Tags- Video, Audio, and Canvas
+- 11. Designing, Defining, and Triggering CSS3 Transitions without Custom Libraries
+- 12. Designing, Defining, and Triggering CSS3 Transforms without Custom Libraries
+y 13. Designing, Defining, and Triggering CSS3 Animations without Custom Libraries
+-->
+<html lang="en-us">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Aaron Pulley">
+        <link rel="shortcut icon" href="http://www.aaronpulley.net/favicon.ico">
+        <meta name="description" content="Aaron Pulley's CIT 261-02 final project">
+        <title>Final Project | Aaron Pulley</title>
+        <link href="https://fonts.googleapis.com/css?family=Raleway:400,800" rel="stylesheet">
+        <style>
+            /*
+            * Common Styling
+            */
+            body {
+                background: #01669c;
+                color: white;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 400;
+                padding: 0 5% 70px;
+            }
+            h1, h2, h3, h4, h5, h5 {
+                font-weight: 800;
+            }
+            a {
+                color: white;
+                text-decoration: none;
+            }
+            h2 {
+                margin-top: 30px;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                margin-bottom: 30px;
+            }
+            header h1 {
+                display: inline-block;
+            }
+            nav {
+                display: inline-block;
+                font-weight: 800;
+            }
+        </style>
+        <style>
+            /*
+            * Project styling
+            */
+            
+            /* Content positioning */
+            #dad-joke-machine {
+                margin: 0 auto;
+                width: 80%;
+                max-width: 400px;
+            }
+            
+            /* Word bubbles */
+            .speech-bubble {
+                position: relative;
+                min-height: 4em;
+                margin: 2em 0;
+                padding: 1em;
+                border-radius: 1em;
+                background: white;
+                color: #222222;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            #dad-joke-bubble:after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                right: 0;
+                width: 0;
+                height: 0;
+                border-width: 2.6em 0 0 2.6em;
+                border-style: solid;
+                border-color: transparent;
+                border-left-color: white;
+                margin-right: -2.55em;
+                margin-top: -1.3em;
+            }
+            #new-joke-bubble:after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 0;
+                width: 0;
+                height: 0;
+                border-width: 0 2.6em 2.6em 0;
+                border-style: solid;
+                border-color: transparent;
+                border-right-color: white;
+                margin-left: -2.55em;
+                margin-top: -1.3em;
+            }
+            #new-joke-bubble.red:after {
+                border-right-color: #ffaaaa;
+            }
+            
+            /* Button */
+            @keyframes button-wobble {  /* Topic #13 */
+                0% {
+                    transform: rotate(0deg);
+                }
+                94% {
+                    transform: rotate(0deg);
+                }
+                96% {
+                    transform: rotate(-5deg);
+                }
+                98% {
+                    transform: rotate(5deg);
+                }
+                100% {
+                    transform: rotate(0deg);
+                }
+            }
+            #new-joke-bubble #new-joke-button {
+                padding: 0.5em;
+                border-radius: 0.7em;
+                font: inherit;
+                animation: button-wobble 7s ease-in-out 0s infinite normal both;  /* Topic #13 */
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1><a href="https://pulley-aaron.github.io/cit-261-02/">Aaron Pulley CIT 261-02</a></h1>
+            <nav><a href="https://pulley-aaron.github.io/cit-261-02/#">Home</a></nav>
+        </header>
+        <main>
+            <h1>The Dad Joke Machine II</h1>
+            <p>A final project demonstrating all topics.</p>
+
+            <div id="dad-joke-machine">
+                <div id="dad-joke-bubble" class="speech-bubble">
+                        <p id="dad-joke" >This is the default dad joke!</p>
+                </div>
+                <div id="new-joke-bubble" class="speech-bubble">
+                    <button id="new-joke-button">Tell another joke dad!</button>
+                </div>
+            </div>
+        </main>
+    </body>
+    <script>
+        /* Initialize old joke storage */
+        var oldJokes = [];  /* Topic #1 */
+        localStorage.setItem("oldJokes", JSON.stringify(oldJokes));  /* Topic #3, Topic #5 */
+        
+        function setButtonText(text) {  /* Topic #1 */
+            document.getElementById("new-joke-button").innerHTML = text;
+        }
+        
+        function highlightButton(highlight) {  /* Topic #1 */
+            var element = document.getElementById("new-joke-bubble");
+            if (highlight) {  /* Topic #1 */
+                element.style.backgroundColor = "#ffaaaa";  /* Topic #7 */
+                element.classList.add("red");  /* Topic #7 */
+            }
+            else {
+                element.style.backgroundColor = "white";  /* Topic #7 */
+                element.classList.remove("red");  /* Topic #7 */
+            }
+        }
+        
+        function setJoke(joke, error) {
+            if (!error) {  /* Don't store error messages */
+                oldJokes = JSON.parse(localStorage.getItem("oldJokes"));  /* Topic #3, Topic #5 */
+                
+                if (!oldJokes.includes(joke)) { /* If not an old joke, store */
+                    /* Add to old jokes */
+                    oldJokes.unshift(joke);  /* Topic #1 */
+                    /* Cap old jokes at most recent 20 */
+                    while (oldJokes.length > 20) {  /* Topic #1 */
+                        oldJokes.pop();  /* Topic #1 */
+                    }
+                    /* Return old jokes to storage */
+                    localStorage.setItem("oldJokes", JSON.stringify(oldJokes));  /* Topic #3, Topic #5 */
+                    
+                    /* Set button to normal text */
+                    setButtonText("Tell another joke dad!");
+                    highlightButton(false);
+                }
+                else { /* Trigger notice for old jokes, do not store */
+                    setButtonText("You already told that one! Try again!");
+                    highlightButton(true);
+                }
+            }
+            
+            /* Set joke */
+            document.getElementById("dad-joke").innerHTML = joke;
+        }
+        
+        function ajaxNewJoke() {
+            /* Create request object */  /* Topic #4 */
+            var request = new XMLHttpRequest();
+            request.open("Get", "https://icanhazdadjoke.com/");
+            request.setRequestHeader("Accept", "application/json");
+            
+            /* Set function to execust when request is finished */
+            request.onload = function() {
+                let joke = "Your request could not be completed due to an unidentified error.";
+                let error = 1;
+                
+                if (request.status == 200) {
+                    joke = JSON.parse(request.response).joke;
+                    error = 0;
+                }
+                else {
+                    joke = "Your request could not be completed due to an error: " + request.status + " " + request.statusText;
+                }
+                
+                setJoke(joke, error);
+            }
+            
+            /* Send request */
+            request.send();  /* Topic #4 */
+        }
+        
+        function reuseJoke() {
+            oldJokes = JSON.parse(localStorage.getItem("oldJokes"));
+            /* Use joke form older half of list */
+            setJoke(oldJokes[Math.floor(Math.random()*oldJokes.length/2 + oldJokes.length/2)], 0);
+        }
+        
+        function changeJoke() {
+            if(Math.random() < 0.1) { /* With 1/10 chance, tell an old joke */
+                reuseJoke();
+            }
+            else {
+                ajaxNewJoke();
+            }
+        }
+
+        window.onload = function() {  /* Topic #9 */
+            changeJoke();
+        }
+
+        document.getElementById("new-joke-button").onclick = function() {  /* Topic #9 */
+            changeJoke();
+        }
+    </script>
+</html>
