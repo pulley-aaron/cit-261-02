@@ -3,7 +3,7 @@
 Page for Aaron Pulley's CIT 261-02 final project
 Topics:
 y 1.  JavaScript -Loops, Conditional Statements, Functions, Variables, Parameters, Arrays, Associative Arrays
-- 2.  JavaScript Objects -Object Creation Functions, Inheritance, Properties, Methods, Instantiation
+y 2.  JavaScript Objects -Object Creation Functions, Inheritance, Properties, Methods, Instantiation
 y 3.  JSONParse, Stringify
 y 4.  AJAXrequesting a JSON file
 y 5.  Local StorageAPI, Storing and Retrieving Simple Data, Arrays, Associative Arrays, and Objects
@@ -169,6 +169,19 @@ y 13. Designing, Defining, and Triggering CSS3 Animations without Custom Librari
         </main>
     </body>
     <script>
+        /* Joke class, not truly necessary, but fulfills topic #2 */
+        class JokeObj {  /* Topic #2 */
+            constructor(ajaxResponse) {  /* Topic #2 */
+                var responseObj = JSON.parse(ajaxResponse);
+                this.id = responseObj.id;  /* Topic #2 */
+                this.joke = responseObj.joke;  /* Topic #2 */
+            }
+            
+            getJoke() {  /* Topic #2 */
+                return this.joke;
+            }
+        }
+    
         /* Initialize old joke storage */
         var oldJokes = [];  /* Topic #1 */
         localStorage.setItem("oldJokes", JSON.stringify(oldJokes));  /* Topic #3, Topic #5 */
@@ -229,7 +242,8 @@ y 13. Designing, Defining, and Triggering CSS3 Animations without Custom Librari
                 let error = 1;
                 
                 if (request.status == 200) {
-                    joke = JSON.parse(request.response).joke;
+                    var jokeObj = new JokeObj(request.response);  /* Topic #2 */
+                    joke = jokeObj.getJoke();
                     error = 0;
                 }
                 else {
