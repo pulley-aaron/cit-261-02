@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!--
 Page for Aaron Pulley's CIT 261-02 final project
+Topics:
 y 1.  JavaScript -Loops, Conditional Statements, Functions, Variables, Parameters, Arrays, Associative Arrays
 - 2.  JavaScript Objects -Object Creation Functions, Inheritance, Properties, Methods, Instantiation
 y 3.  JSONParse, Stringify
@@ -8,11 +9,11 @@ y 4.  AJAXrequesting a JSON file
 y 5.  Local StorageAPI, Storing and Retrieving Simple Data, Arrays, Associative Arrays, and Objects
 - 6.  DOM Manipulation Using createElement, appendChild, insertBefore, removeChild, etc.
 y 7.  Manipulating CSS Class Properties Using JavaScript
-- 8.  Creating CSS3 Transitions and Animations in CSS and triggering them with JavaScript
+y 8.  Creating CSS3 Transitions and Animations in CSS and triggering them with JavaScript
 y 9.  Standard JavaScript Events Including those for Mobile Devices ( Ex. onTouchBegin, onLoad, etc.) and Animation and Transition Events
 - 10. HTML5 Tags- Video, Audio, and Canvas
-- 11. Designing, Defining, and Triggering CSS3 Transitions without Custom Libraries
-- 12. Designing, Defining, and Triggering CSS3 Transforms without Custom Libraries
+y 11. Designing, Defining, and Triggering CSS3 Transitions without Custom Libraries
+y 12. Designing, Defining, and Triggering CSS3 Transforms without Custom Libraries
 y 13. Designing, Defining, and Triggering CSS3 Animations without Custom Libraries
 -->
 <html lang="en-us">
@@ -100,6 +101,9 @@ y 13. Designing, Defining, and Triggering CSS3 Animations without Custom Librari
                 margin-right: -2.55em;
                 margin-top: -1.3em;
             }
+            #new-joke-bubble{
+                transition: background-color 0.3s ease-in-out;  /* Topic #11 */
+            }
             #new-joke-bubble:after {
                 content: "";
                 position: absolute;
@@ -111,6 +115,7 @@ y 13. Designing, Defining, and Triggering CSS3 Animations without Custom Librari
                 border-style: solid;
                 border-color: transparent;
                 border-right-color: white;
+                transition: border-right-color 0.3s ease-in-out;  /* Topic #11 */
                 margin-left: -2.55em;
                 margin-top: -1.3em;
             }
@@ -119,7 +124,7 @@ y 13. Designing, Defining, and Triggering CSS3 Animations without Custom Librari
             }
             
             /* Button */
-            @keyframes button-wobble {  /* Topic #13 */
+            @keyframes button-wobble {  /* Topic #12, Topic #13 */
                 0% {
                     transform: rotate(0deg);
                 }
@@ -253,12 +258,25 @@ y 13. Designing, Defining, and Triggering CSS3 Animations without Custom Librari
             }
         }
 
+        /* Using ES6 fat arrow function */
+        var pauseButtonWobble = (seconds) => {  /* Topic #8 */
+            /* Pause wobble */
+            document.getElementById("new-joke-button").style.animationPlayState = "paused";
+            
+            /* Resume wobble after specified time */
+            var resumeWobble = () => {
+                document.getElementById("new-joke-button").style.animationPlayState = "running";
+            }
+            setTimeout(resumeWobble, seconds*1000);
+        }
+        
         window.onload = function() {  /* Topic #9 */
             changeJoke();
         }
 
         document.getElementById("new-joke-button").onclick = function() {  /* Topic #9 */
             changeJoke();
+            pauseButtonWobble(7);
         }
     </script>
 </html>
